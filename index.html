@@ -2,21 +2,33 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LAXSTORE TOPUP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        body { 
+        /* KUNCI LAYAR AGAR TIDAK BERGESER */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body { 
             background-color: #020617; 
             color: white; 
             font-family: 'Inter', sans-serif; 
             margin: 0; 
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden; /* Anti geser kanan-kiri */
+        }
+
+        body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
+            min-height: 100dvh; /* Pas di layar HP */
         }
         
         @keyframes pulse-glow {
@@ -26,10 +38,42 @@
         }
 
         .hero-section {
-            padding: 60px 20px 30px;
+            padding: 40px 20px 10px;
+            display: flex;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* PERBAIKAN: Judul & Slogan dengan Background Gambar Lokal */
+        .brand-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 35px 20px;
+            background: #0f172a;
+            border: 2px solid rgba(56, 189, 248, 0.4);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), transparent);
-            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+        .brand-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('header-bg.jpg'); /* Pastikan file ada di folder */
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            filter: brightness(0.4);
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 2;
         }
 
         .brand-name {
@@ -38,16 +82,17 @@
             font-size: 42px; 
             letter-spacing: -2px; 
             margin: 0;
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
         }
 
         .brand-slogan {
-            color: #94a3b8; 
-            font-size: 12px; 
+            color: #f1f5f9; 
+            font-size: 13px; 
             text-transform: uppercase; 
             letter-spacing: 3px; 
             margin-top: 8px;
-            font-weight: 600;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .main-wrapper {
@@ -57,7 +102,7 @@
             align-items: center;
             justify-content: center;
             gap: 25px;
-            padding: 40px 20px;
+            padding: 20px;
             background: radial-gradient(circle at center, rgba(30, 41, 59, 0.5) 0%, transparent 70%);
         }
 
@@ -78,15 +123,6 @@
 
         .game-card:active { transform: scale(0.95); }
 
-        .hot-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            z-index: 10;
-            filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.8));
-        }
-
         .game-img {
             width: 100%;
             height: 100%;
@@ -96,7 +132,6 @@
             left: 0;
         }
 
-        /* Gradasi bayangan agar teks besar lebih mudah dibaca */
         .overlay-shadow {
             position: absolute;
             bottom: 0;
@@ -113,59 +148,43 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: transparent;
             z-index: 5;
         }
 
-        /* PERUBAHAN: Text diperbesar signifikan */
         .game-title {
-            font-size: 18px; /* Diperbesar dari 12px */
+            font-size: 18px; 
             font-weight: 900;
             color: white;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-align: center;
-            padding: 0 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .bottom-payment {
+            flex-shrink: 0;
             padding: 25px 15px;
             text-align: center;
             background: #0f172a;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .payment-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
         .pay-logo { height: 18px; }
-        
-        .seabank-text {
-            color: #ff6a00; 
-            font-weight: 900;
-            font-size: 16px;
-            letter-spacing: 0.5px;
-        }
+        .seabank-text { color: #ff6a00; font-weight: 900; font-size: 16px; }
     </style>
 </head>
 <body>
 
     <div class="hero-section">
-        <h1 class="brand-name">LAXSTORE</h1>
-        <p class="brand-slogan">TOPUP SATSET ANTI MACET</p>
+        <div class="brand-card">
+            <div class="brand-bg"></div>
+            <div class="brand-content">
+                <h1 class="brand-name">LAXSTORE</h1>
+                <p class="brand-slogan">TOPUP SATSET ANTI MACET</p>
+            </div>
+        </div>
     </div>
 
     <div class="main-wrapper">
-        
         <div class="game-card" onclick="window.location.href='https://topupepep.netlify.app'">
-            <div class="hot-icon">🔥</div>
             <img src="ff.jpg" class="game-img" alt="Free Fire">
             <div class="overlay-shadow"></div>
             <div class="card-info">
@@ -174,22 +193,20 @@
         </div>
 
         <div class="game-card" onclick="window.location.href='https://topupemel.netlify.app'">
-            <div class="hot-icon">🔥</div>
             <img src="ml.jpeg" class="game-img" alt="Mobile Legends">
             <div class="overlay-shadow"></div>
             <div class="card-info">
                 <h2 class="game-title">MOBILE LEGENDS</h2>
             </div>
         </div>
-
     </div>
 
     <div class="bottom-payment">
         <p style="font-size: 10px; color: #64748b; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">Metode Pembayaran</p>
-        <div class="payment-bar">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" class="pay-logo" alt="QRIS">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" class="pay-logo" alt="DANA">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" class="pay-logo" alt="GOPAY">
+        <div class="flex justify-center items-center gap-5 mt-3">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" class="pay-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" class="pay-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" class="pay-logo">
             <span class="seabank-text">🏦SeaBank</span>
         </div>
     </div>
